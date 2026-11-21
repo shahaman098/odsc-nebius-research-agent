@@ -1,0 +1,27 @@
+<!doctype html><meta charset=utf-8>
+<title>CiteTrail demo</title>
+<style>
+body{margin:0;background:#0b1220;color:#e8eefc;font:18px/1.45 ui-monospace,Menlo,monospace}
+.wrap{padding:48px 56px;max-width:1100px}
+h1{font:700 42px/1.1 system-ui;margin:0 0 12px}
+.sub{opacity:.75;margin-bottom:28px}
+pre{white-space:pre-wrap;background:#121a2b;border:1px solid #243049;border-radius:12px;padding:20px}
+.badge{display:inline-block;background:#1d4ed8;padding:4px 10px;border-radius:999px;font:600 12px system-ui;margin-bottom:16px}
+</style>
+<div class=wrap>
+<div class=badge>ODSC × Nebius · CiteTrail</div>
+<h1>Live research agent demo</h1>
+<p class=sub>Nebius Token Factory + Tavily · sourced answer with citations</p>
+<pre id=out></pre>
+</div>
+<script>
+const text = 'Nebius Token Factory is a platform that provides an OpenAI-compatible API for AI inference and fine-tuning, supporting over 40 open-source models such as DeepSeek, Llama, Qwen, and others, optimized for high-performance hardware [2][6]. It offers production-grade AI inference at scale with features like governance, team and access management, SSO, unified billing, and audit-friendly workspaces [6]. Developers can use it to run models, fine-tune them with datasets, and integrate with third-party tools [1][2].\n\nDevelopers call Nebius Token Factory using an OpenAI-compatible API by making HTTP POST requests to the API endpoint with the appropriate headers and payload. Authentication is done via a Bearer token in the `Authorization` header, using an API key obtained from the Nebius Token Factory dashboard [2][1]. The API supports standard OpenAI-compatible parameters for generation, such as `model`, `messages`, and `temperature` [4].\n\nTo use the API, developers can set the `base_url` to the Nebius Token Factory endpoint and provide their API key via environment variables or directly in the client configuration. For example, using the OpenAI Python client:\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url="https://api.tokenfactory.nebius.com/v1",\n    api_key=os.environ.get("NEBIUS_API_KEY")\n)\n\nresponse = client.chat.completions.create(\n    model="deepseek-ai/DeepSeek-R1-0528",\n    messages=[\n        {"role": "system", "content": "You are a helpful assistant"},\n        {"role": "user", "content": [{"type": "text", "text": "hello"}]}\n    ]\n)\n\nprint(response.to_json())\n```\n\nThis code sends a request to the Nebius Token Factory API to generate a response using the DeepSeek-R1-0528 model, using the OpenAI-compatible interface [1][2]. The platform also supports model flavors like `base` and `fast`, which can be specified by appending `-fast` to the model name for optimized performance [4].\n\nSources:\n[1] https://docs.tokenfactory.nebius.com/quickstart\n[2] https://docs.tokenfactory.nebius.com/api-reference/introduction\n[3] https://docs.tokenfactory.nebius.com/api-reference/examples/overview\n[4] https://docs.tokenfactory.nebius.com/ai-models-inference/overvi';
+const el = document.getElementById('out');
+let i=0;
+function tick(){
+  i = Math.min(text.length, i+3);
+  el.textContent = text.slice(0,i);
+  if(i<text.length) requestAnimationFrame(tick);
+}
+tick();
+</script>
